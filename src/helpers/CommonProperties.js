@@ -2,7 +2,7 @@
 
 export const PADDING_RX = 6;
 
-export function commonContextProperties (prefix = undefined, customProperties = undefined) {
+export function commonContainerProperties (customProperties = {}) {
 
     const properties = {};
 
@@ -19,12 +19,13 @@ export function commonContextProperties (prefix = undefined, customProperties = 
         properties[p + "th"] = p + "th";
     }
 
-    return createPrefixedProperties(properties, prefix, customProperties);
+    return Object.assign(properties, customProperties);
 }
 
-export function commonRxProperties (prefix = undefined, customProperties = undefined) {
+export function commonRxProperties (customProperties = {}) {
 
     const properties = {
+
         "0d1": 0.1,
         "0d2": 0.2,
         "0d3": 0.3,
@@ -32,6 +33,7 @@ export function commonRxProperties (prefix = undefined, customProperties = undef
         "0d5": 0.5,
 
         Padding: PADDING_RX,
+        Padding2x: 2 * PADDING_RX,
 
         SmallFx: "2fx",
         SmallLx: "2lx",
@@ -63,15 +65,13 @@ export function commonRxProperties (prefix = undefined, customProperties = undef
         properties[i + "d5"] = i + 0.5;
     }
 
-    return createPrefixedProperties(properties, prefix, customProperties);
+    return Object.assign(properties, customProperties);
 }
 
-function createPrefixedProperties (properties, prefix = "g", customProperties = {}) {
-
-    properties = Object.assign(properties, customProperties);
+export function createPrefixedProperties (properties, prefix = "g") {
 
     const result = {};
-    for (let key of properties) {
+    for (let key in properties) {
         result[(key == "onResize" ? '': prefix) + key] = properties[key];
     }
 

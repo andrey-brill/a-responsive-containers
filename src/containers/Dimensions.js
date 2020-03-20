@@ -12,7 +12,7 @@ export class Dimensions {
         }
 
         if (!isNumber(width) || !isNumber(height)) {
-            throw new Error('Invalid dimension: ' + width + ', ' + height);
+            throw new Error('Invalid dimensions: ' + width + ', ' + height);
         }
 
         this.inch = inch;

@@ -1,10 +1,11 @@
 
 import { isFunction, isString, isNumber } from "../helpers/Utils.js";
+import { Suffixes } from "../helpers/Suffixes.js";
 
 
 /** Legend of RC-values
  *
- * All parts must be unique to simplify parsing
+ * All suffixes must be unique to simplify parsing
  *
  * Context:
  *     t = top container
@@ -14,39 +15,40 @@ import { isFunction, isString, isNumber } from "../helpers/Utils.js";
  * Units:
  *     w = width
  *     h = height
- *     min = min(w,h)
- *     max = max(w,h)
+ *     min = min(width, height)
+ *     max = max(width, height)
  *     rx = relative pixel
  *     fx = fontSize-pixel
  *     lx = lineHeight-pixel
  *
  * Modifiers:
- *     R - round()
+ *     R = round
  *
  * */
 
-const CONTEXTS = "c|p|t".split("|");
-const UNITS = "rx|fx|lx|w|h|min|max".split("|");
+const CONTEXTS = new Suffixes('current', {
+    c: 'current',
+    p: 'parent',
+    t: 'top'
+});
 
-const UNITS_NAMES = (() => {
-    const names = {};
-    for (let unit of UNITS) {
-        names[unit] = unit;
-    }
-    return Object.assign(names, {
-        w: "width",
-        h: "height"
-    });
-})();
+const DEFAULT_SUFFIX = 'rx';
 
-const ROUND = "R";
-const MODIFIERS = [ROUND];
+const UNITS = new Suffixes(DEFAULT_SUFFIX, {
+    rx: 'rx',
+    fx: 'fx',
+    lx: 'lx',
+    w: 'width',
+    h: 'height',
+    min: 'min',
+    max: 'max'
+});
 
-const DEFAULT_CONTEXT = CONTEXTS[0];
-const DEFAULT_UNIT = UNITS[0];
-const DEFAULT_SUFFIX = DEFAULT_CONTEXT + DEFAULT_UNIT;
+const MODIFIERS = new Suffixes(undefined, {
+    R: 'round'
+});
 
-const SUFFIX_PATTERN = new RegExp(`^(${CONTEXTS.join("|")})?(${UNITS.join("|")})${MODIFIERS.join("|")}?$`, "g");
+const SUFFIX_REG_EX = Suffixes.buildSuffixRegEx(CONTEXTS, UNITS, MODIFIERS);
 
 export function rv (value, suffix = null) {
 
@@ -60,10 +62,12 @@ export function rv (value, suffix = null) {
     }
 
     if (isString(value)) {
-        let split = valueString.replace(/([0-9])(\D+)$/, "$1:$2").split(":"); // replace ..0x.. to ..0:x..
+        let split = value.replace(/([0-9])(\D+)$/, "$1:$2").split(":"); // replace ..0x.. to ..0:x..
         value = split[0] * 1;
         suffix = split[1];
-    } else if (isNumber(value) && !suffix) {
+    }
+
+    if (!suffix || suffix.trim() === '') {
         suffix = DEFAULT_SUFFIX;
     }
 
@@ -71,26 +75,22 @@ export function rv (value, suffix = null) {
         throw new Error("Invalid syntax for responsive value: " + (value + suffix));
     }
 
-    if (!SUFFIX_PATTERN.test(suffix)) {
+    if (!SUFFIX_REG_EX.test(suffix)) {
         throw new Error("Invalid suffix for responsive value: " + suffix);
     }
 
-    return {
+    const result = {
         isResponsiveObject: true,
         value,
-        context: firstStringInString(CONTEXTS, suffix, DEFAULT_CONTEXT),
-        unit: UNITS_NAMES[firstStringInString(UNITS, suffix, DEFAULT_UNIT)],
-        round: firstStringInString(MODIFIERS, suffix, "") == ROUND
+        context: CONTEXTS.resolve(suffix),
+        unit: UNITS.resolve(suffix),
     };
-}
 
-function firstStringInString (strings, str, notFoundStr) {
+    MODIFIERS.resolveSeparately(result, suffix);
 
-    for (let s in strings) {
-        if (str.indexOf(s) > 0) {
-            return str;
-        }
+    if (!result.context || !result.unit) {
+        throw new Error('Invalid responsive value: ' + (value + suffix));
     }
 
-    return notFoundStr;
+    return result;
 }

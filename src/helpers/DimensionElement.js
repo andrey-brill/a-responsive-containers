@@ -8,7 +8,7 @@ export class DimensionElement {
         this.el = document.createElement('div');
 
         // making sure that the element is invisible and outside of the screen
-        Object.assign(el.style, {
+        Object.assign(this.el.style, {
             width: dimension,
             position: 'absolute',
             height: '0px',

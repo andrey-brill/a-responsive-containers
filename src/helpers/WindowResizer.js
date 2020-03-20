@@ -1,15 +1,19 @@
 
+import { DimensionElement } from "./DimensionElement.js";
 
-const WindowDimensions = {
+
+function defaultWindowDimensions () { return {
     inch: '1in',
     width: '100vw',
     height: '100vh'
-}
+}}
 
 export class WindowResizer {
 
 
-    constructor (options = WindowDimensions) {
+    constructor (options = {}) {
+
+        options = Object.assign(defaultWindowDimensions(), options);
 
         this.isWindowResizer = true;
 
@@ -40,21 +44,21 @@ export class WindowResizer {
         this.isActive = false;
         this.onChange = undefined;
 
-        for (let el of elements) {
+        for (let el of this.elements) {
             el.destroy();
         }
     }
 
     checkSizes = () => {
 
-        if (!isActive) {
+        if (!this.isActive) {
             return;
         }
 
         let isChanged = false;
         let isValid = true;
 
-        for (let el of elements) {
+        for (let el of this.elements) {
 
             el.prepareNew();
 
@@ -65,8 +69,8 @@ export class WindowResizer {
         if (isChanged && isValid) {
 
             let newDimensions = {};
-            for (let el of elements) {
-                newDimensions[el.name] = elements.applyNew();
+            for (let el of this.elements) {
+                newDimensions[el.name] = el.applyNew();
             }
             this.onChange(newDimensions);
         }

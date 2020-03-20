@@ -9,5 +9,5 @@ export function isString (obj) {
 }
 
 export function isNumber (obj) {
-    return obj * 1 === obj && !isNaN(obj) && !isFinite(obj);
+    return (obj * 1 === obj) && !isNaN(obj) && isFinite(obj);
 }

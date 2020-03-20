@@ -1,8 +1,8 @@
 
-import { ResponsiveContainer } from "./ResponsiveContainer";
+import { ResponsiveContainer } from "./ResponsiveContainer.js";
 
 
-export class Containers {
+export class ResponsiveContainers {
 
     constructor () {
         this.containers = {};

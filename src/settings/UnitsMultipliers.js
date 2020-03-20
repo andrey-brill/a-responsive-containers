@@ -1,5 +1,5 @@
 
-import { FontMultipliers } from "./FontMultipliers";
+import { FontMultipliers } from "./FontMultipliers.js";
 
 
 const UNIT_MULTIPLIERS = {
@@ -11,6 +11,6 @@ const UNIT_MULTIPLIERS = {
 };
 
 export function resolveUnitsMultipliers (fontMultipliers = FontMultipliers.default) {
-    const m = assign({}, fontMultipliers);
-    return assign(m, UNIT_MULTIPLIERS);
+    const m = Object.assign({}, fontMultipliers);
+    return Object.assign(m, UNIT_MULTIPLIERS);
 }

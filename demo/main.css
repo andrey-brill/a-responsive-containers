@@ -3,4 +3,78 @@ html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
+    color: #333333;
+}
+
+#root {
+    font-size: var(--gTextFx);
+    margin-top: var(--gMenuHeight);
+}
+
+.content {
+    max-width: var(--g100cw);
+    margin: auto;
+}
+
+.menu {
+    position: fixed;
+    width: 100vw;
+    left: 0;
+    top: 0;
+    height: var(--gMenuHeight);
+    background-color: teal;
+    color: whitesmoke;
+    font-size: var(--gH6Fx);
+}
+
+.menu-items-container {
+    display: flex;
+    flex-direction: row;
+    height: var(--gMenuHeight);
+    align-items: center;
+}
+
+.menu-item {
+    padding: 0 var(--gPadding);
+}
+
+.menu-item:first-child {
+    flex: 1;
+}
+
+html.no-scrollbar body::-webkit-scrollbar {
+    display: none;
+}
+
+.columns-container {
+    display: flex;
+    flex-direction: var(--gColumnsContainerDirection);
+}
+
+.column {
+    flex: 1;
+    padding: var(--gPadding2x) var(--gPadding) 0;
+}
+
+.title {
+    font-size: var(--gH4Fx);
+    font-weight: 500;
+}
+
+.sub-title {
+    font-size: var(--gSmallFx);
+    color: #999999;
+    padding-top: var(--g1);
+    padding-bottom: var(--g4);
+}
+
+.text > div {
+    padding-bottom: var(--g2);
+}
+
+iframe {
+    width: 100%;
+    height: var(--g60ch);
+    border-width: var(--g1);
+    border-radius: var(--g2);
 }

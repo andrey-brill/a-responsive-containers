@@ -1,21 +1,21 @@
 
 
-const { Containers, WindowContainer, rcResize, rv } = window.ResponsiveContainers
+import { ResponsiveContainers, WindowContainer, rcResize, rv, commonContainerProperties, createPrefixedProperties, commonRxProperties } from '../src/index.js'
 
-const containers = new Containers();
+const containers = new ResponsiveContainers();
 
-const contentWidthRv = rv('100w');
-const minColumnWidthRv = rv(70);
+const topWidthRv = rv('100w');
+const minColumnWidthRv = rv(65);
 
 function isEnoughSpace (calc) {
-    const width = calc(contentWidthRv);
+    const width = calc(topWidthRv);
     const minWidth = calc(minColumnWidthRv);
     return minWidth <= width / 2;
 }
 
-function rxResize (parentDimension, calc) {
+function rxResize (parentDimensions, calc) {
 
-    const dimensions = rcResize(parentDimension);
+    const dimensions = rcResize(parentDimensions);
 
     if (isEnoughSpace(calc)) {
         dimensions.width = dimensions.width / 2;
@@ -25,27 +25,34 @@ function rxResize (parentDimension, calc) {
 }
 
 const windowContainer = containers.put('top', new WindowContainer({
-    onInitialize: onInitialize
+    onInitialize
 }));
 
-const contentContainer = containers.put('content', { rcResize, rxResize }, 'top')
-// const columnContainer = containers.put('column', { rcResize: rxResize }, 'top')
+const contentContainer = containers.put('content', { rcResize, rxResize }, 'top');
 
 
 function onInitialize () {
+
+    if (isInIframe()) {
+        document.head.parentElement.classList.add('no-scrollbar');
+    }
 
     const root = document.getElementById('root');
 
     root.innerHTML = `
         <div class="menu">
-            <div>Menu</div>
-            <div>RC</div>
+            <div class="content-container">
+                <div class="content menu-items-container">
+                    <div class="menu-item">Responsive Containers</div>
+                    <div class="menu-item">Menu</div>
+                </div>
+            </div>
         </div>
-        <div id="leftContainer" class="container">
-
-        </div>
-        <div id="rightContainer" class="container">
-
+        <div class="content-container">
+            <div class="content columns-container">
+                <div id="leftContainer" class="column"></div>
+                <div id="rightContainer" class="column"></div>
+            </div>
         </div>
     `
 
@@ -59,7 +66,7 @@ function onInitialize () {
         <div class="sub-title">
             <span>Responsive sub title</span>
         </div>
-        <div class="test">
+        <div class="text">
             <div>Responsive test. Some very very very very very very very very very very very very very very very very very very long text.</div>
             <div>Responsive test. Some very very very very very very very very very very very very very very very very very very very very very very very long text.</div>
             <div>Responsive test. Some very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text.</div>
@@ -82,6 +89,16 @@ function onInitialize () {
 
     leftContainer.innerHTML = textPanel;
     rightContainer.innerHTML = isInIframe() ? textPanel : iframePanel;
+
+    let properties = {
+        MenuHeight: '12R',
+        onResize: function (rp, calc) {
+            const enough = isEnoughSpace(calc);
+            rp.gColumnsContainerDirection = enough ? 'row' : 'column';
+        }
+    };
+
+    contentContainer.register(root, createPrefixedProperties(commonContainerProperties(commonRxProperties(properties))));
 }
 
 function isInIframe () {
@@ -91,3 +108,6 @@ function isInIframe () {
         return true; // don't have access to the top window
     }
 }
+
+
+windowContainer.autoResize();

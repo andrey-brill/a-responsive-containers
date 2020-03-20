@@ -1,6 +1,6 @@
 
-import { ResponsiveContainer } from "./ResponsiveContainer";
-import { WindowResizer } from "../helpers/WindowResizer";
+import { ResponsiveContainer } from "./ResponsiveContainer.js";
+import { WindowResizer } from "../helpers/WindowResizer.js";
 
 
 export class WindowContainer extends ResponsiveContainer {
@@ -8,7 +8,7 @@ export class WindowContainer extends ResponsiveContainer {
     constructor (options) {
 
         if (!options.rxResize) {
-            options.rxResize = rcResize || (dimensions => dimensions);
+            options.rxResize = options.rcResize || (dimensions => dimensions);
         }
 
         super(options);
@@ -16,7 +16,7 @@ export class WindowContainer extends ResponsiveContainer {
         this.onInitialize = options.onInitialize || (x => x);
     }
 
-    autoResize (options) {
+    autoResize (options = {}) {
 
         if (this.windowResizer) {
             throw Error();

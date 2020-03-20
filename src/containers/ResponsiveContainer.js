@@ -1,6 +1,9 @@
 
 import { isFunction, isNumber } from "../helpers/Utils.js";
 import { resolveUnitsMultipliers } from "../settings/UnitsMultipliers.js";
+import { Dimensions } from "./Dimensions.js";
+import { calcRx } from "./Rx.js";
+import { rv } from "../values/Rv.js";
 
 
 export class ResponsiveContainer {
@@ -9,11 +12,10 @@ export class ResponsiveContainer {
 
         this.isResponsiveContainer = true;
 
-        // contexts allows possibility to calc values based on t - top, p - parent or c - current contexts
         this.contexts = {
-            t: this,
-            p: null,
-            c: this
+            top: this,
+            parent: null,
+            current: this
         };
 
         this.containers = [];
@@ -28,9 +30,8 @@ export class ResponsiveContainer {
     resize = (parentDimensions) => {
 
         const rcDimensions = this.rcResize(parentDimensions, this.calc); // here c-context unavailable for calc function
-        this.dimensions = new Dimension(rcDimensions.width, rcDimensions.height, rcDimensions.inch || parentDimensions.inch);
-
-        this.dimensions.rx = this.rxResize(parentDimensions, calc);
+        this.dimensions = new Dimensions(rcDimensions.width, rcDimensions.height, rcDimensions.inch || parentDimensions.inch);
+        this.dimensions.rx = this.rxResize(parentDimensions, this.calc);
 
         for (let listener of this.listeners) {
             listener(this.calc);
@@ -39,6 +40,10 @@ export class ResponsiveContainer {
         for (let container of this.containers) {
             container.resize(this.dimensions);
         }
+    }
+
+    isInitialized () {
+        return !!this.dimensions;
     }
 
     register (object, properties) {
@@ -66,7 +71,7 @@ export class ResponsiveContainer {
             ro[key] = rv(ro[key]);
         }
 
-        const listener = function(calc) {
+        const listener = function (calc) {
             let r = {};
             for (let key in ro) {
                 r[key] = calc(ro[key]);
@@ -75,9 +80,11 @@ export class ResponsiveContainer {
             onResize(r, calc);
         };
 
-        if (this.dimensions) {  // if initialized
+        if (this.isInitialized()) {
             listener(this.calc);
         }
+
+        this.listeners.push(listener);
 
         return () => {
             this.listeners = this.listeners.filter(item => item !== listener);
@@ -109,17 +116,17 @@ export class ResponsiveContainer {
 
         properties.onResize = elResize;
 
-        return register(properties);
+        return this.registerObject(properties);
     }
 
     registerContainer (container) {
 
-        container.contexts.p = this.contexts.c; // set parent container
-        container.setTopContext(this.contexts.t);
+        container.contexts.parent = this.contexts.current;
+        container.setTopContext(this.contexts.top);
 
         this.containers.push(container);
 
-        if (this.dimensions) {  // if initialized
+        if (this.isInitialized()) {
             container.resize(this.dimensions); // allowing dynamic adding new containers
         }
 
@@ -128,16 +135,16 @@ export class ResponsiveContainer {
             this.containers = this.containers.filter(item => item !== container);
 
             container.setTopContext(container);
-            container.context.p = undefined;
+            container.context.parent = undefined;
         };
     }
 
-    setTopContext (t) {
+    setTopContext (top) {
 
-        this.contexts.t = t;
+        this.contexts.top = top;
 
         for (let container of this.containers) {
-            container.setTopContext(t);
+            container.setTopContext(top);
         }
     }
 
@@ -163,7 +170,7 @@ export class ResponsiveContainer {
             throw new Error("Context is undefined: " + context);
         }
 
-        const v = value * multiplier * c.dimension[unit];
+        const v = value * multiplier * c.dimensions[unit];
         return round ? Math.round(v) : v;
     }
 }
@@ -177,8 +184,8 @@ function resolveRxResize (rxResize = 'inherit') {
 
     if (isFunction(rxResize)) {
         return (parentDimensions, calc) =>  {
-            const rxDimension = rxResize(parentDimensions, calc);
-            return calcRx(rxDimension.width, rxDimension.height, rxDimension.inch || parentDimensions.inch);
+            const rxDimensions = rxResize(parentDimensions, calc);
+            return calcRx(rxDimensions.width, rxDimensions.height, rxDimensions.inch || parentDimensions.inch);
         }
     }
 
