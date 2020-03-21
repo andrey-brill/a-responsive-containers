@@ -18,8 +18,9 @@
   },
   "homepage": "https://github.com/andrey-brill/responsive-containers",
   "keywords": [
-    "library",
-    "responsive"
+    "responsive",
+    "containers",
+    "pixel"
   ],
   "devDependencies": {
     "concurrently": "^5.1.0",
