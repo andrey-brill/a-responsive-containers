@@ -1,6 +1,6 @@
 {
   "name": "responsive-containers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Responsive containers",
   "main": "src/index.js",
   "scripts": {

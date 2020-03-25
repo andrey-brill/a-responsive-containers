@@ -2,5 +2,5 @@
 .vs
 .github
 .gitignore
-demo
+dev
 node_modules
