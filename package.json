@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "npm run open",
-    "open": "concurrently \"http-server -c-1 -p 3091\" \"start http://127.0.0.1:3091/demo"
+    "open": "webpack-dev-server --config ./dev/src/webpack.config.js --open"
   },
   "repository": {
     "type": "git",

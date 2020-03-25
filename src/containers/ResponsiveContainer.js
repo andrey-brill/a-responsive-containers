@@ -25,9 +25,12 @@ export class ResponsiveContainer {
         this.rxResize = resolveRxResize(options.rxResize);
 
         this.multipliers = resolveUnitsMultipliers(options.fontMultipliers);
+
+        this.resize = this.resize.bind(this);
+        this.calc = this.calc.bind(this);
     }
 
-    resize = (parentDimensions) => {
+    resize (parentDimensions) {
 
         const rcDimensions = this.rcResize(parentDimensions, this.calc); // here c-context unavailable for calc function
         this.dimensions = new Dimensions(rcDimensions.width, rcDimensions.height, rcDimensions.inch || parentDimensions.inch);
@@ -148,7 +151,7 @@ export class ResponsiveContainer {
         }
     }
 
-    calc = rv => {
+    calc (rv) {
 
         if (rv.isResponsiveFunction) {
             return rv(this.calc);

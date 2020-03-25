@@ -1,6 +1,6 @@
 
+import { ResponsiveContainers, WindowContainer, rcResize, rv, commonContainerProperties, createPrefixedProperties, commonRxProperties } from '../../src/index.js'
 
-import { ResponsiveContainers, WindowContainer, rcResize, rv, commonContainerProperties, createPrefixedProperties, commonRxProperties } from '../src/index.js'
 
 const containers = new ResponsiveContainers();
 
@@ -54,7 +54,7 @@ function onInitialize () {
                 <div id="rightContainer" class="column"></div>
             </div>
         </div>
-    `
+    `;
 
     const leftContainer = document.getElementById('leftContainer');
     const rightContainer = document.getElementById('rightContainer');
@@ -71,7 +71,7 @@ function onInitialize () {
             <div>Responsive test. Some very very very very very very very very very very very very very very very very very very very very very very very long text.</div>
             <div>Responsive test. Some very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text.</div>
             <div>Responsive test. Some very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text.</div>
-            <div>Responsive test. Some very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text.</div>
+            <div>Responsive test. Some very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very long text.</div>
         </div>
     `.replace(/\>[\s\n]+\</g, '><')
 
@@ -83,7 +83,7 @@ function onInitialize () {
             <span>Same url as src of IFrame</span>
         </div>
         <div class="iframe-container">
-          <iframe src="/demo"/>
+          <iframe src="/"/>
         </div>
     `
 
