@@ -1,9 +1,9 @@
 
-import { ResponsiveContainer } from "./ResponsiveContainer.js";
+import { Container } from "./Container.js";
 import { WindowResizer } from "../helpers/WindowResizer.js";
 
 
-export class WindowContainer extends ResponsiveContainer {
+export class WindowContainer extends Container {
 
     constructor (options) {
 
@@ -19,7 +19,7 @@ export class WindowContainer extends ResponsiveContainer {
     autoResize (options = {}) {
 
         if (this.windowResizer) {
-            throw Error();
+            throw Error('autoResize() must be called once, or unsubscribe first');
         }
 
         this.windowResizer = options.isWindowResizer ? options : new WindowResizer(options)

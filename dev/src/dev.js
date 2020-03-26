@@ -1,37 +1,29 @@
 
-import { ResponsiveContainers, WindowContainer, rcResize, rv, commonContainerProperties, createPrefixedProperties, commonRxProperties } from '../../src/index.js'
+import { WindowContainer, Container, rcResize, rv, commonContainerProperties, createPrefixedProperties, commonRxProperties } from '../../src/index.js'
 
 
-const containers = new ResponsiveContainers();
-
-const topWidthRv = rv('100w');
-const minColumnWidthRv = rv(65);
-
-function isEnoughSpace (calc) {
-    const width = calc(topWidthRv);
-    const minWidth = calc(minColumnWidthRv);
-    return minWidth <= width / 2;
-}
-
-function rxResize (parentDimensions, calc) {
-
-    const dimensions = rcResize(parentDimensions);
-
-    if (isEnoughSpace(calc)) {
-        dimensions.width = dimensions.width / 2;
-    }
-
-    return dimensions;
-}
-
-const windowContainer = containers.put('top', new WindowContainer({
+const windowContainer = new WindowContainer({
     onInitialize
-}));
-
-const contentContainer = containers.put('content', { rcResize, rxResize }, 'top');
+});
 
 
 function onInitialize () {
+
+    const isEnoughSpaceRv = rv.is(65, '<=', '50w');
+
+    function rxResize (parentDimensions, calc) {
+
+        const dimensions = rcResize(parentDimensions);
+
+        if (calc(isEnoughSpaceRv)) {
+            dimensions.width = dimensions.width / 2;
+        }
+
+        return dimensions;
+    }
+
+    const contentContainer = new Container({ rcResize, rxResize });
+    windowContainer.register(contentContainer);
 
     if (isInIframe()) {
         document.head.parentElement.classList.add('no-scrollbar');
@@ -93,7 +85,7 @@ function onInitialize () {
     let properties = {
         MenuHeight: '12R',
         onResize: function (rp, calc) {
-            const enough = isEnoughSpace(calc);
+            const enough = calc(isEnoughSpaceRv);
             rp.gColumnsContainerDirection = enough ? 'row' : 'column';
         }
     };

@@ -1,6 +1,7 @@
 
 import { isFunction, isString, isNumber } from "../helpers/Utils.js";
 import { Suffixes } from "../helpers/Suffixes.js";
+import { assignMath } from "./Math.js";
 
 
 /** Legend of RC-values
@@ -50,7 +51,11 @@ const MODIFIERS = new Suffixes(undefined, {
 
 const SUFFIX_REG_EX = Suffixes.buildSuffixRegEx(CONTEXTS, UNITS, MODIFIERS);
 
-export function rv (value, suffix = null) {
+function rv (value, suffix = null) {
+
+    if (value == null) {
+        throw new Error('Value is undefined')
+    }
 
     if (value.isResponsiveObject || value.isResponsiveFunction) {
         return value;
@@ -94,3 +99,7 @@ export function rv (value, suffix = null) {
 
     return result;
 }
+
+assignMath(rv);
+
+export { rv };

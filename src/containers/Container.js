@@ -6,7 +6,7 @@ import { calcRx } from "./Rx.js";
 import { rv } from "../values/Rv.js";
 
 
-export class ResponsiveContainer {
+export class Container {
 
     constructor (options) {
 
@@ -17,6 +17,8 @@ export class ResponsiveContainer {
             parent: null,
             current: this
         };
+
+        this.name = options.name;
 
         this.containers = [];
         this.listeners = [];
@@ -29,6 +31,43 @@ export class ResponsiveContainer {
         this.resize = this.resize.bind(this);
         this.calc = this.calc.bind(this);
     }
+
+    findParent (name, globally = true) {
+
+        const { parent } = this.contexts;
+        if (!parent) {
+            return null;
+        }
+
+        if (parent.name === name) {
+            return parent;
+        }
+
+        return globally ? parent.findParent(name, true) : null;
+    }
+
+    findChildren (name, globally = true) {
+
+        for (let child of this.containers) {
+            if (child.name === name) {
+                return child;
+            }
+        }
+
+        if (!globally) {
+            return null;
+        }
+
+        for (let child of this.containers) {
+            const result = child.findChildren(name, true);
+            if (result) {
+                return result;
+            }
+        }
+
+        return null;
+    }
+
 
     resize (parentDimensions) {
 
