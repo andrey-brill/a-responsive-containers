@@ -23,7 +23,7 @@ export class Container {
         this.containers = [];
         this.listeners = [];
 
-        this.rcResize = options.rcResize || (dimensions => dimensions); // (parentDimensions, calc) -> [new] {width, height} // can be null to make possible set in children classes
+        this.rcResize = options.rcResize || (dimensions => dimensions); // (parentDimensions, calc) -> [new] {width, height}
         this.rxResize = resolveRxResize(options.rxResize);
 
         this.multipliers = resolveUnitsMultipliers(options.fontMultipliers);
