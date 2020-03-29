@@ -1,6 +1,6 @@
 {
-  "name": "responsive-containers",
-  "version": "1.1.0",
+  "name": "a-responsive-containers",
+  "version": "1.0.0",
   "description": "Responsive containers",
   "main": "src/index.js",
   "scripts": {
@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/andrey-brill/responsive-containers"
+    "url": "https://github.com/andrey-brill/a-responsive-containers"
   },
   "author": "Andrey Brill <andrey@a-brill.com> (https://github.com/andrey-brill)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/andrey-brill/responsive-containers/issues"
+    "url": "https://github.com/andrey-brill/a-responsive-containers/issues"
   },
-  "homepage": "https://github.com/andrey-brill/responsive-containers",
+  "homepage": "https://github.com/andrey-brill/a-responsive-containers",
   "keywords": [
     "responsive",
     "containers",
