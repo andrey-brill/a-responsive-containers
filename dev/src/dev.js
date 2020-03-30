@@ -1,5 +1,5 @@
 
-import { WindowContainer, Container, rcResize, rv, commonContainerProperties, createPrefixedProperties, commonRxProperties } from '../../src/index.js'
+import { WindowContainer, Container, rcResize, rv, commonProperties } from '../../src/index.js'
 
 
 const windowContainer = new WindowContainer({
@@ -83,14 +83,14 @@ function onInitialize () {
     rightContainer.innerHTML = isInIframe() ? textPanel : iframePanel;
 
     let properties = {
-        MenuHeight: '12R',
+        gMenuHeight: '12R',
         onResize: function (rp, calc) {
             const enough = calc(isEnoughSpaceRv);
             rp.gColumnsContainerDirection = enough ? 'row' : 'column';
         }
     };
 
-    contentContainer.register(root, createPrefixedProperties(commonContainerProperties(commonRxProperties(properties))));
+    contentContainer.register(root, commonProperties(properties));
 }
 
 function isInIframe () {
