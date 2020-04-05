@@ -5,7 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "start": "npm run open",
-    "open": "webpack-dev-server --config ./dev/src/webpack.config.js --open"
+    "open": "webpack-dev-server --config ./examples/src/webpack.config.js --env.mode development --open"
   },
   "repository": {
     "type": "git",
