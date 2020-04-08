@@ -1,11 +1,11 @@
 {
   "name": "a-responsive-containers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Responsive containers",
-  "main": "src/index.js",
+  "main": "entry/entry.js",
   "scripts": {
     "start": "npm run open",
-    "open": "webpack-dev-server --config ./examples/src/webpack.config.js --env.mode development --open"
+    "open": "webpack-dev-server --config ./examples/@src/webpack.config.js --env.mode development --open"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 
-import { WindowContainer, Container, rcResize, rv, commonProperties } from '../../src/index.js';
+import { WindowContainer, Container, rcResize, rv, commonProperties } from '../../@src/index.js';
 import './index.css';
 
 const windowContainer = new WindowContainer({
