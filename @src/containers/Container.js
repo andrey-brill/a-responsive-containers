@@ -207,9 +207,14 @@ export class Container {
             throw new Error("Unknown unit: " + unit);
         }
 
-        const c = this.contexts[context];
+        let c = this.contexts[context];
         if (!c) {
-            throw new Error("Context is undefined: " + context);
+
+            c = context === 'parent' ? this.contexts.current : undefined;
+
+            if (!c) {
+                throw new Error("Context is undefined: " + context);
+            }
         }
 
         const v = value * multiplier * c.dimensions[unit];
