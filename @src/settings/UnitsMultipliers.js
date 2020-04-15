@@ -4,6 +4,7 @@ import { FontMultipliers } from "./FontMultipliers.js";
 
 const UNIT_MULTIPLIERS = {
     rx: 1.0,
+    diagonal: 0.01,
     width: 0.01,
     height: 0.01,
     min: 0.01,

@@ -1,6 +1,6 @@
 {
   "name": "a-responsive-containers",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Responsive containers",
   "main": "entry/entry.js",
   "scripts": {

@@ -16,6 +16,7 @@ import { assignMath } from "./Math.js";
  * Units:
  *     w = width
  *     h = height
+ *     d = diagonal
  *     min = min(width, height)
  *     max = max(width, height)
  *     rx = relative pixel
@@ -39,6 +40,7 @@ const UNITS = new Suffixes(DEFAULT_SUFFIX, {
     rx: 'rx',
     fx: 'fx',
     lx: 'lx',
+    d: 'diagonal',
     w: 'width',
     h: 'height',
     min: 'min',
