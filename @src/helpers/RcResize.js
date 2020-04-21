@@ -10,7 +10,7 @@ export function isTabletOrMobile (d) {
     return d <= 12 * diagonalApproximationK;
 }
 
-export function rcResize ({ width, height, diagonal }) {
+export function rcResize ({ width, height, diagonal }, _calc) {
 
     // small screen
     if (isSmallScreen(diagonal)) {

@@ -23,8 +23,12 @@ export class Container {
         this.containers = [];
         this.listeners = [];
 
-        this.rcResize = options.rcResize || (dimensions => dimensions); // (parentDimensions, calc) -> [new] {width, height}
-        this.rxResize = resolveRxResize(options.rxResize);
+         // rcResize(parentDimensions, calc) -> [new] {width, height}
+        this.rcResize = options.rcResize || (parentDimensions => parentDimensions);
+
+        // rxResize(parentDimensions, calc) -> [new] {width, height}
+        // calcRx(parentDimensions, calc) -> [new] rx
+        this.calcRx = resolveCalcRx(options.rxResize || this.rcResize);
 
         this.multipliers = resolveUnitsMultipliers(options.fontMultipliers);
 
@@ -73,7 +77,7 @@ export class Container {
 
         const rcDimensions = this.rcResize(parentDimensions, this.calc); // here c-context unavailable for calc function
         this.dimensions = new Dimensions(rcDimensions.width, rcDimensions.height, rcDimensions.inch || parentDimensions.inch);
-        this.dimensions.rx = this.rxResize(parentDimensions, this.calc);
+        this.dimensions.rx = this.calcRx(parentDimensions, this.calc);
 
         for (let listener of this.listeners) {
             listener(this.calc);
@@ -223,10 +227,10 @@ export class Container {
 }
 
 
-function resolveRxResize (rxResize = 'inherit') {
+function resolveCalcRx (rxResize) {
 
     if (rxResize === 'inherit') {
-        return (parentDimensions => parentDimensions.rx)
+        return (parentDimensions => parentDimensions.rx);
     }
 
     if (isFunction(rxResize)) {

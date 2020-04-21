@@ -13,7 +13,7 @@ function onInitialize () {
 
     function rxResize (parentDimensions, calc) {
 
-        const dimensions = rcResize(parentDimensions);
+        const dimensions = rcResize(parentDimensions, calc);
 
         if (calc(isEnoughSpaceRv)) {
             dimensions.width = dimensions.width / 2;

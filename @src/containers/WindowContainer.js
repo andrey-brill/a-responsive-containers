@@ -6,11 +6,6 @@ import { WindowResizer } from "../helpers/WindowResizer.js";
 export class WindowContainer extends Container {
 
     constructor (options) {
-
-        if (!options.rxResize) {
-            options.rxResize = options.rcResize || (dimensions => dimensions);
-        }
-
         super(options);
 
         this.onInitialize = options.onInitialize || (x => x);
