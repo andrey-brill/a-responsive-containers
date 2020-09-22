@@ -23,7 +23,7 @@
     "pixel"
   ],
   "devDependencies": {
-    "a-webpack-configs": "^2.0.19"
+    "a-webpack-configs": "^2.0.20"
   },
   "dependencies": {}
 }

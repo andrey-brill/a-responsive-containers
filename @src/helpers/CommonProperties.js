@@ -13,17 +13,16 @@ export function commonContainerProperties (customProperties = {}, prefix = GLOBA
 
     const properties = {};
 
-    for (let i = 1; i <= 20; i++) {
+    for (let i = 1; i <= 100; i++) {
 
-        const p = i * 5;
-        properties[p + 'cw'] = p + 'cw';
-        properties[p + 'ch'] = p + 'ch';
+        properties[i + 'cw'] = i + 'cw';
+        properties[i + 'ch'] = i + 'ch';
 
-        properties[p + 'pw'] = p + 'pw';
-        properties[p + 'ph'] = p + 'ph';
+        properties[i + 'pw'] = i + 'pw';
+        properties[i + 'ph'] = i + 'ph';
 
-        properties[p + 'tw'] = p + 'tw';
-        properties[p + 'th'] = p + 'th';
+        properties[i + 'tw'] = i + 'tw';
+        properties[i + 'th'] = i + 'th';
     }
 
     const prefixed = addPrefix(properties, prefix);

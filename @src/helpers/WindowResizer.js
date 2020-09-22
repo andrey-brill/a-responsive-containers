@@ -1,26 +1,21 @@
 
 import { DimensionElement } from "./DimensionElement.js";
+import { HeightElement } from "./HeightElement.js";
 
-
-function defaultWindowDimensions () { return {
-    inch: '1in',
-    width: '100vw',
-    height: '100vh'
-}}
 
 export class WindowResizer {
 
-
     constructor (options = {}) {
 
-        options = Object.assign(defaultWindowDimensions(), options);
+        const { inch = '1in', width = '100vw', height = '100vh' } = options;
 
         this.isWindowResizer = true;
 
-        this.elements = [];
-        for (let key in options) {
-            this.elements.push(new DimensionElement(key, options[key]));
-        }
+        this.elements = [
+            new DimensionElement('inch', inch),
+            new DimensionElement('width', width),
+            new HeightElement('height', height)
+        ];
 
         this.onResize = this.onResize.bind(this);
         this.checkSizes = this.checkSizes.bind(this);
