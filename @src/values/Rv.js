@@ -14,14 +14,12 @@ import { assignMath } from "./Math.js";
  *     c = current container
  *
  * Units:
+ *     x = responsive pixel
  *     w = width
  *     h = height
  *     d = diagonal
- *     min = min(width, height)
- *     max = max(width, height)
- *     rx = relative pixel
- *     fx = fontSize-pixel
- *     lx = lineHeight-pixel
+ *     m = min(width, height)
+ *     M = max(width, height)
  *
  * Modifiers:
  *     R = round
@@ -34,17 +32,15 @@ const CONTEXTS = new Suffixes('current', {
     t: 'top'
 });
 
-const DEFAULT_SUFFIX = 'rx';
+const DEFAULT_UNIT = 'x';
 
-const UNITS = new Suffixes(DEFAULT_SUFFIX, {
-    rx: 'rx',
-    fx: 'fx',
-    lx: 'lx',
+const UNITS = new Suffixes('rx', {
+    x: 'rx',
     d: 'diagonal',
     w: 'width',
     h: 'height',
-    min: 'min',
-    max: 'max'
+    m: 'min',
+    M: 'max'
 });
 
 const MODIFIERS = new Suffixes(undefined, {
@@ -75,7 +71,7 @@ function rv (value, suffix = null) {
     }
 
     if (!suffix || suffix.trim() === '') {
-        suffix = DEFAULT_SUFFIX;
+        suffix = DEFAULT_UNIT;
     }
 
     if (!value || !suffix || !isNumber(value) || !isString(suffix)) {

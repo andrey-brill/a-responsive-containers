@@ -1,10 +1,19 @@
 
 import { isFunction, isNumber } from "../helpers/Utils.js";
-import { resolveUnitsMultipliers } from "../settings/UnitsMultipliers.js";
 import { Dimensions } from "./Dimensions.js";
 import { calcRx } from "./Rx.js";
 import { rv } from "../values/Rv.js";
 
+
+
+const UNIT_MULTIPLIERS = {
+    rx: 1.0,
+    diagonal: 0.01,
+    width: 0.01,
+    height: 0.01,
+    min: 0.01,
+    max: 0.01
+};
 
 export class Container {
 
@@ -30,10 +39,6 @@ export class Container {
         // calcRx(parentDimensions, calc) -> [new] rx
         this.calcRx = resolveCalcRx(options.rxResize || this.rcResize);
 
-        this.multipliers = resolveUnitsMultipliers(options.fontMultipliers);
-
-        this.resize = this.resize.bind(this);
-        this.calc = this.calc.bind(this);
     }
 
     findParent (name, globally = true) {
@@ -73,7 +78,7 @@ export class Container {
     }
 
 
-    resize (parentDimensions) {
+    resize = (parentDimensions) => {
 
         const rcDimensions = this.rcResize(parentDimensions, this.calc); // here c-context unavailable for calc function
         this.dimensions = new Dimensions(rcDimensions.width, rcDimensions.height, rcDimensions.inch || parentDimensions.inch);
@@ -194,7 +199,7 @@ export class Container {
         }
     }
 
-    calc (rv) {
+    calc = (rv) => {
 
         if (rv.isResponsiveFunction) {
             return rv(this.calc);
@@ -206,7 +211,7 @@ export class Container {
 
         const { value, context, unit, round } = rv;
 
-        const multiplier = this.multipliers[unit];
+        const multiplier = UNIT_MULTIPLIERS[unit];
         if (!multiplier) {
             throw new Error("Unknown unit: " + unit);
         }

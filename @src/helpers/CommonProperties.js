@@ -43,29 +43,14 @@ export function commonRxProperties (customProperties = {}, prefix = GLOBAL_PREFI
         Padding: PADDING_RX,
         Padding2x: 2 * PADDING_RX,
 
-        SmallFx: '2fx',
-        SmallLx: '2lx',
-
-        TextFx: '2.25fx',
-        TextLx: '2.25lx',
-
-        H6Fx: '2.5fx',
-        H6Lx: '2.5lx',
-
-        H5Fx: '3fx',
-        H5Lx: '3lx',
-
-        H4Fx: '3.5fx',
-        H4Lx: '3.5lx',
-
-        H3Fx: '4fx',
-        H3Lx: '4lx',
-
-        H2Fx: '5fx',
-        H2Lx: '5lx',
-
-        H1Fx: '6fx',
-        H1Lx: '6lx'
+        Small: '2.75R',
+        Text: '3.15R',
+        H6: '3.5R',
+        H5: '4.25R',
+        H4: '5.0R',
+        H3: '5.75R',
+        H2: '7R',
+        H1: '8.5R'
     };
 
     for (let i = 1; i <= 20; i++) {

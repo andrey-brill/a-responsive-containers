@@ -31,7 +31,7 @@ export class Dimensions {
             throw new Error('Invalid value for rx: ' + value);
         }
 
-        this._rx = this.lx = this.fx = value;
+        this._rx = value;
     }
 
     get rx () {

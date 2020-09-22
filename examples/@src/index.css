@@ -7,7 +7,7 @@ html, body {
 }
 
 #root {
-    font-size: var(--gTextFx);
+    font-size: var(--gText);
     margin-top: var(--gMenuHeight);
 }
 
@@ -24,7 +24,7 @@ html, body {
     height: var(--gMenuHeight);
     background-color: teal;
     color: whitesmoke;
-    font-size: var(--gH6Fx);
+    font-size: var(--gH6);
 }
 
 .menu-items-container {
@@ -57,12 +57,12 @@ html.no-scrollbar body::-webkit-scrollbar {
 }
 
 .title {
-    font-size: var(--gH4Fx);
+    font-size: var(--gH4);
     font-weight: 500;
 }
 
 .sub-title {
-    font-size: var(--gSmallFx);
+    font-size: var(--gSmall);
     color: #999999;
     padding-top: var(--g1);
     padding-bottom: var(--g4);

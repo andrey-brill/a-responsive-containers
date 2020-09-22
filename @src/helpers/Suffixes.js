@@ -28,7 +28,7 @@ export class Suffixes {
     }
 
     static buildSuffixRegEx (...suffixes) {
-        let patterns = suffixes.map(s => '(' + s.shortNames.join('|') + ')?');
-        return new RegExp(`^${patterns.join('')}$`); // must be without 'g'
+        const patterns = suffixes.map(s => '(' + s.shortNames.join('|') + ')?');
+        return new RegExp(`^${patterns.join('')}$`); // RegExp must be without 'g' flag
     }
 }

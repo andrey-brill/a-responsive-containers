@@ -17,11 +17,9 @@ export class WindowResizer {
             new HeightElement('height', height)
         ];
 
-        this.onResize = this.onResize.bind(this);
-        this.checkSizes = this.checkSizes.bind(this);
     }
 
-    onResize (onChange) {
+    onResize = (onChange) => {
 
         if (!onChange || this.isActive || this.onChange) {
             throw new Error();
@@ -47,7 +45,7 @@ export class WindowResizer {
         }
     }
 
-    checkSizes () {
+    checkSizes = () => {
 
         if (!this.isActive) {
             return;
