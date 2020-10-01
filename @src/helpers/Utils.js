@@ -23,3 +23,8 @@ export function splitOnNumberAndSuffix (value) {
         throw Error('Value is not string: ' + value);
     }
 }
+
+// in browsers 1in == 96px, but real size in pixels, especially on mobiles is usually larger in 1.4
+export function fromPhysicalInchToWebInch (physicalInch) {
+    return physicalInch * 1.4;
+}

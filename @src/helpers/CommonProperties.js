@@ -2,28 +2,29 @@
 import { splitOnNumberAndSuffix } from './Utils';
 
 
-export const PaddingRx = 16;
+export const PaddingRx = 42;
 
 export function commonProperties (prefix = '') {
 
     const properties = {
 
-        h1: '1h',
+        x1: '1x',
         h100: '100h',
-
-        w1: '1w',
         w100: '100w',
-
-        m1: '1m',
-        m100: '100m',
-
-        M1: '1M',
-        M100: '100M',
 
         Padding: PaddingRx + 'x',
         Padding2x: (2 * PaddingRx) + 'x',
 
-        Text: 12 + 'x'
+        H1: 63 + 'x',
+        H2: 54 + 'x',
+        H3: 46 + 'x',
+        H4: 39 + 'x',
+        H5: 33 + 'x',
+        H6: 28 + 'x',
+        T1: 24 + 'x',
+        T2: 21 + 'x',
+        T3: 19 + 'x'
+
     };
 
     const ru = {}

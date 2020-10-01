@@ -1,27 +1,32 @@
 
 import { ElementContainer } from '../../@src/containers/ElementContainer.js';
-import { WindowContainer, commonProperties, initializeContext } from '../../@src/index.js';
+import { WindowContainer, commonProperties, initializeWebContext, toResponsiveColumn } from '../../@src/index.js';
 import './index.css';
 
 
-initializeContext();
+initializeWebContext();
 
 const contentContainer = new ElementContainer()
 contentContainer.target = document.getElementById('root');
-contentContainer.register(contentContainer.target, commonProperties());
+contentContainer.register(contentContainer.target,  Object.assign(commonProperties(), {
+    rMenuHeight: '96rx'
+}));
 
 let rendered = false;
 
 const windowContainer = new WindowContainer();
 windowContainer.target = document.body;
 windowContainer.register(windowContainer.target, Object.assign(commonProperties('w'), {
-    wMenuHeight: '48rxR',
     onResize: (rp) => {
-        console.log('rp', rp);
-        // rp.wColumnsContainerDirection = enough ? 'row' : 'column';
+
+        const { wuw100: width, wuh100: height } = rp;
+
+        const responsiveColumn = toResponsiveColumn(width, height);
+        contentContainer.resize(responsiveColumn.width, responsiveColumn.height);
+        rp.wColumnsContainerDirection = responsiveColumn.numberOfColumns > 1 ? 'row' : 'column';
 
         if (!rendered) {
-            // TODO renderHtml();
+            renderHtml();
         }
     }
 }));

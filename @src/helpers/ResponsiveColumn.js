@@ -1,9 +1,10 @@
 
 import { fromInch } from '../core/Context';
+import { fromPhysicalInchToWebInch } from './Utils';
 
 
 const ColumnRatio = 9.0 / 16.0;
-const MinColumnWidthInch = 3.6;
+const MinColumnWidthInch = fromPhysicalInchToWebInch(3.5);
 
 // Resolving sizes of virtual column inside full-height sections of landing pages
 // Do not use this in web-applications (there height must be non-changeable)
@@ -16,7 +17,7 @@ export function toResponsiveColumn (width, height, maxNumberOfColumns = 2) {
     const minColumnWidth = fromInch(MinColumnWidthInch);
 
     let numberOfColumns = maxNumberOfColumns;
-    while (numberOfColumns > 1 && widthInch < numberOfColumns * minColumnWidth) {
+    while (numberOfColumns > 1 && width < numberOfColumns * minColumnWidth) {
         numberOfColumns--;
     }
 
@@ -24,10 +25,11 @@ export function toResponsiveColumn (width, height, maxNumberOfColumns = 2) {
     const wColumnWidth = width / numberOfColumns;
     const realColumnWidth = Math.min(wColumnWidth, hColumnWidth);
 
-    if (numberOfColumns === 1 || realColumnWidth < minColumnWidth) {
+    if (numberOfColumns === 1) {
         return {
             width,
-            height: width <= height ? height : width / ColumnRatio // horizontal mode is "zooming" mode
+            height: width <= height ? height : width / ColumnRatio, // horizontal mode is "zooming" mode
+            numberOfColumns: 1
         };
     } else { // big screen
         return {

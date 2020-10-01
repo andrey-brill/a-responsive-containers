@@ -1,6 +1,6 @@
 
 import { isFunction } from "../helpers/Utils.js";
-import { resolveKH, resolveKW, resolveResponsiveK } from './K.js';
+import { responsiveHeight, responsiveWidth, responsiveK } from './Responsive.js';
 import { context } from '../core/Context.js';
 
 
@@ -37,14 +37,14 @@ export class Container {
     resize (width, height) {
 
         this.ru.u = {
-            kW: resolveKW(width, this.gridWidth, 1.0),
-            kH: resolveKH(height, this.gridHeight, 1.0)
+            responsiveWidth: responsiveWidth(width, this.gridWidth, 1.0),
+            responsiveHeight: responsiveHeight(height, this.gridHeight, 1.0)
         }
 
-        const r = resolveResponsiveK(height, this.gridHeight);
+        const r = responsiveK(height, this.gridHeight);
         this.ru.r = {
-            kW: resolveKW(width, this.gridWidth, r),
-            kH: resolveKH(height, this.gridHeight, r)
+            responsiveWidth: responsiveWidth(width, this.gridWidth, r),
+            responsiveHeight: responsiveHeight(height, this.gridHeight, r)
         }
 
     }

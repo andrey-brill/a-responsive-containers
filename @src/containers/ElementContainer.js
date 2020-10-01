@@ -9,6 +9,9 @@ export class ElementContainer extends Container {
     constructor (gridWidth, gridHeight) {
         super(gridWidth, gridHeight);
         this.listeners = [];
+
+        this.width = 0;
+        this.height = 0;
     }
 
     dispose = () => {
@@ -48,7 +51,7 @@ export class ElementContainer extends Container {
         const rect = this.target.getBoundingClientRect();
         const width = rect ? rect.width : 0;
         const height = rect ? rect.height : 0;
-        if (this.isValid(width, height) && this.width != width && this.height != height) {
+        if (this.isValid(width, height) && (this.width != width || this.height != height)) {
             this.width = width;
             this.height = height;
             this.resize(width, height)
@@ -127,7 +130,7 @@ export class ElementContainer extends Container {
             onResize(r, calc);
         };
 
-        if (this.target) {
+        if (this.isValid(this.width, this.height)) {
             listener(this.calc);
         }
 

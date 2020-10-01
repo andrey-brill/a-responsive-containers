@@ -9,6 +9,7 @@ module.exports = (env) => spa(env, {
     developmentPath: './examples/spa',
 
     title: 'RC',
+    host: 'auto',
 
     plugins: {
         css: true,

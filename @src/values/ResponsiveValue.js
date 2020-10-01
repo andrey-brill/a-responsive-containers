@@ -1,6 +1,6 @@
 
 
-import { resolveResponsiveValue } from '../core/K';
+import { resolveResponsiveValue } from '../core/Responsive';
 import { SuffixKeys } from '../helpers/SuffixKeys';
 import { isNumber, isString } from '../helpers/Utils';
 
@@ -10,11 +10,9 @@ import { isNumber, isString } from '../helpers/Utils';
  * All keys must be unique to simplify parsing
  *
  * Units:
- *     x = (1 / Context.FullHeight) % of height
+ *     x = (1 / Context.gridHeight) % of height
  *     w = % of width
  *     h = % of height
- *     m = % of min(width, height)
- *     M = % of max(width, height)
  *
  * Contexts:
  *    r = responsive (see resolveResponsiveK)
@@ -26,7 +24,7 @@ import { isNumber, isString } from '../helpers/Utils';
  * */
 
 
-const Units = new SuffixKeys([ 'x', 'w', 'h', 'm', 'M']);
+const Units = new SuffixKeys([ 'x', 'w', 'h', 'W', 'H']);
 const Contexts = new SuffixKeys([ 'r', 'u' ]);
 const Round = new SuffixKeys([ 'R' ]);
 
@@ -52,8 +50,8 @@ export class ResponsiveValue {
 
     }
 
-    calc ({ kW, kH }) {
-        const v = resolveResponsiveValue(this.value, this.unit, kW, kH);
+    calc ({ responsiveWidth, responsiveHeight }) {
+        const v = resolveResponsiveValue(this.value, this.unit, responsiveWidth, responsiveHeight);
         return this.round ? Math.max(1,Math.round(v)) : v; // safe rounding
     }
 

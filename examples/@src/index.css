@@ -4,40 +4,52 @@ html, body {
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     color: #333333;
-    height: 100vh;
-    width: 100vw;
+    height: 100%;
+    max-height: 100%;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
 }
 
 #root {
-    font-size: var(--gText);
-    margin-top: var(--gMenuHeight);
+    font-size: var(--rT1);
+    margin-top: var(--rMenuHeight);
+
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    width: var(--wuw100);
+    max-width: var(--wuw100);
+
+    height: var(--wuh100);
+    max-height: calc(var(--wuh100) - var(--rMenuHeight));
 }
 
 .content {
-    max-width: var(--g100cw);
+    max-width: calc(2 * var(--rw100));
     margin: auto;
 }
 
 .menu {
     position: fixed;
-    width: 100vw;
+    width: var(--wuw100);
     left: 0;
     top: 0;
-    height: var(--gMenuHeight);
+    height: var(--rMenuHeight);
     background-color: teal;
     color: whitesmoke;
-    font-size: var(--gH6);
+    font-size: var(--rH6);
 }
 
 .menu-items-container {
     display: flex;
     flex-direction: row;
-    height: var(--gMenuHeight);
+    height: var(--rMenuHeight);
     align-items: center;
 }
 
 .menu-item {
-    padding: 0 var(--gPadding);
+    padding: 0 var(--rPadding);
 }
 
 .menu-item:first-child {
@@ -55,28 +67,33 @@ html.no-scrollbar body::-webkit-scrollbar {
 
 .column {
     flex: 1;
-    padding: var(--gPadding2x) var(--gPadding) 0;
+    padding: var(--rPadding2x) var(--rPadding) 0;
 }
 
 .title {
-    font-size: var(--gH4);
+    font-size: var(--rH4);
     font-weight: 500;
 }
 
 .sub-title {
-    font-size: var(--gSmall);
+    font-size: var(--rT2);
     color: #999999;
-    padding-top: var(--g1);
-    padding-bottom: var(--g4);
+    padding-top: calc(8 * var(--rx1));
+    padding-bottom: calc(36 * var(--rx1));
 }
 
 .text > div {
-    padding-bottom: var(--g2);
+    padding-bottom: calc(20 * var(--rx1));
+    text-align: justify;
+}
+
+.text > div:last-child {
+    padding-bottom: calc(36 * var(--rx1));
 }
 
 iframe {
     width: 100%;
-    height: var(--g60ch);
-    border-width: var(--g1);
-    border-radius: var(--g2);
+    height: calc(0.6 * var(--uh100));
+    border-width: calc(8 * var(--rx1));
+    border-radius: calc(16 * var(--rx1));
 }
