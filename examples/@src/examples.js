@@ -1,29 +1,34 @@
 
-import { WindowContainer, Container, rcResize, rv, commonProperties } from '../../@src/index.js';
+import { ElementContainer } from '../../@src/containers/ElementContainer.js';
+import { WindowContainer, commonProperties, initializeContext } from '../../@src/index.js';
 import './index.css';
 
-const windowContainer = new WindowContainer({
-    onInitialize
-});
 
+initializeContext();
 
-function onInitialize () {
+const contentContainer = new ElementContainer()
+contentContainer.target = document.getElementById('root');
+contentContainer.register(contentContainer.target, commonProperties());
 
-    const isEnoughSpaceRv = rv.is(65, '<=', '50w');
+let rendered = false;
 
-    function rxResize (parentDimensions, calc) {
+const windowContainer = new WindowContainer();
+windowContainer.target = document.body;
+windowContainer.register(windowContainer.target, Object.assign(commonProperties('w'), {
+    wMenuHeight: '48rxR',
+    onResize: (rp) => {
+        console.log('rp', rp);
+        // rp.wColumnsContainerDirection = enough ? 'row' : 'column';
 
-        const dimensions = rcResize(parentDimensions, calc);
-
-        if (calc(isEnoughSpaceRv)) {
-            dimensions.width = dimensions.width / 2;
+        if (!rendered) {
+            // TODO renderHtml();
         }
-
-        return dimensions;
     }
+}));
 
-    const contentContainer = new Container({ rcResize, rxResize });
-    windowContainer.register(contentContainer);
+windowContainer.listenResize();
+
+function renderHtml () {
 
     if (isInIframe()) {
         document.head.parentElement.classList.add('no-scrollbar');
@@ -82,15 +87,6 @@ function onInitialize () {
     leftContainer.innerHTML = textPanel;
     rightContainer.innerHTML = isInIframe() ? textPanel : iframePanel;
 
-    let properties = {
-        gMenuHeight: '12R',
-        onResize: function (rp, calc) {
-            const enough = calc(isEnoughSpaceRv);
-            rp.gColumnsContainerDirection = enough ? 'row' : 'column';
-        }
-    };
-
-    contentContainer.register(root, commonProperties(properties));
 }
 
 function isInIframe () {
@@ -100,6 +96,3 @@ function isInIframe () {
         return true; // don't have access to the top window
     }
 }
-
-
-windowContainer.autoResize();

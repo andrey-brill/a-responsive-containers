@@ -1,74 +1,40 @@
 
+import { splitOnNumberAndSuffix } from './Utils';
 
-export const PADDING_RX = 6;
 
-const GLOBAL_PREFIX = 'g';
+export const PaddingRx = 16;
 
-export function commonProperties (customProperties = {}, prefix = GLOBAL_PREFIX) {
-    const properties = commonRxProperties(customProperties, prefix);
-    return commonContainerProperties(properties, prefix);
-}
-
-export function commonContainerProperties (customProperties = {}, prefix = GLOBAL_PREFIX) {
-
-    const properties = {};
-
-    for (let i = 1; i <= 100; i++) {
-
-        properties[i + 'cw'] = i + 'cw';
-        properties[i + 'ch'] = i + 'ch';
-
-        properties[i + 'pw'] = i + 'pw';
-        properties[i + 'ph'] = i + 'ph';
-
-        properties[i + 'tw'] = i + 'tw';
-        properties[i + 'th'] = i + 'th';
-    }
-
-    const prefixed = addPrefix(properties, prefix);
-
-    return Object.assign(prefixed, customProperties);
-}
-
-export function commonRxProperties (customProperties = {}, prefix = GLOBAL_PREFIX) {
+export function commonProperties (prefix = '') {
 
     const properties = {
 
-        '0d1': 0.1,
-        '0d2': 0.2,
-        '0d3': 0.3,
-        '0d4': 0.4,
-        '0d5': 0.5,
+        h1: '1h',
+        h100: '100h',
 
-        Padding: PADDING_RX,
-        Padding2x: 2 * PADDING_RX,
+        w1: '1w',
+        w100: '100w',
 
-        Small: '2.75R',
-        Text: '3.15R',
-        H6: '3.5R',
-        H5: '4.25R',
-        H4: '5.0R',
-        H3: '5.75R',
-        H2: '7R',
-        H1: '8.5R'
+        m1: '1m',
+        m100: '100m',
+
+        M1: '1M',
+        M100: '100M',
+
+        Padding: PaddingRx + 'x',
+        Padding2x: (2 * PaddingRx) + 'x',
+
+        Text: 12 + 'x'
     };
 
-    for (let i = 1; i <= 20; i++) {
-        properties[i] = i;
-        properties[i + 'd5'] = i + 0.5;
+    const ru = {}
+
+    for (let c of ['r', 'u']) {
+        for (let key in properties) {
+            const { number, suffix } = splitOnNumberAndSuffix(properties[key])
+            ru[prefix + c + key] = '' + number + c + suffix; // h1 = 1h => rh1 = 1rh
+        }
     }
 
-    const prefixed = addPrefix(properties, prefix);
-
-    return Object.assign(prefixed, customProperties);
+    return ru;
 }
 
-function addPrefix (properties, prefix) {
-
-    const result = {};
-    for (let key in properties) {
-        result[(key == 'onResize' ? '': prefix) + key] = properties[key];
-    }
-
-    return result;
-}

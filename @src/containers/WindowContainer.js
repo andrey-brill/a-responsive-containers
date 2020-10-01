@@ -1,40 +1,26 @@
 
-import { Container } from "./Container.js";
-import { WindowResizer } from "../helpers/WindowResizer.js";
+import { ElementContainer } from "./ElementContainer.js";
 
 
-export class WindowContainer extends Container {
+export class WindowContainer extends ElementContainer {
 
-    constructor (options) {
-        super(options);
+    isValid (width, height) {
 
-        this.onInitialize = options.onInitialize || (x => x);
-    }
-
-    autoResize (options = {}) {
-
-        if (this.windowResizer) {
-            throw Error('autoResize() must be called once, or unsubscribe first');
+        if (!super.isValid(width, height)) {
+            return false;
         }
 
-        this.windowResizer = options.isWindowResizer ? options : new WindowResizer(options)
-
-        let initialized = false;
-
-        this.windowResizer.onResize((dimensions) => {
-
-            if (!initialized) {
-                this.onInitialize();
-                initialized = true;
+        const delta = this.height - height;
+        if (delta != 0) {
+            if (delta > 15) { // making sure that delta is changed fast
+                this.previousPositiveDelta = delta;
+            } else if (delta < 0 && this.previousPositiveDelta) {
+                if (this.previousPositiveDelta === Math.abs(delta)) {
+                    return false; // preventing changing height to prevent jumping on mobiles
+                }
             }
-
-            this.resize(dimensions);
-        });
-
-        return () => {
-            this.windowResizer.destroy();
-            delete this.windowResizer;
         }
-    }
 
+        return true;
+    }
 }
