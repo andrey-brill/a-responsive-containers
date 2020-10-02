@@ -1,7 +1,7 @@
 
 import { ElementContainer } from '../../@src/containers/ElementContainer.js';
 import { WindowContainer, commonProperties, initializeWebContext, toResponsiveColumn } from '../../@src/index.js';
-import './index.css';
+import './index.scss';
 
 
 initializeWebContext();

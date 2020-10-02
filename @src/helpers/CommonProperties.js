@@ -13,7 +13,6 @@ export function commonProperties (prefix = '') {
         w100: '100w',
 
         Padding: PaddingRx + 'x',
-        Padding2x: (2 * PaddingRx) + 'x',
 
         H1: 63 + 'x',
         H2: 54 + 'x',
@@ -21,6 +20,7 @@ export function commonProperties (prefix = '') {
         H4: 39 + 'x',
         H5: 33 + 'x',
         H6: 28 + 'x',
+
         T1: 24 + 'x',
         T2: 21 + 'x',
         T3: 19 + 'x'

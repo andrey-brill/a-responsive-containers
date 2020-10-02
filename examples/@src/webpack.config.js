@@ -12,7 +12,7 @@ module.exports = (env) => spa(env, {
     host: 'auto',
 
     plugins: {
-        css: true,
+        scss: true,
         babel: true,
         clean: true,
         copy: true

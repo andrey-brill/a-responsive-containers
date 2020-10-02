@@ -1,0 +1,85 @@
+
+@function ww ($value: 100) {
+    @return calc(var(--wuw100) * #{$value / 100});
+}
+
+@function wh ($value: 100) {
+    @return calc(var(--wuh100) * #{$value / 100});
+}
+
+@function rw ($value: 100) {
+    @return calc(var(--rw100) * #{$value / 100});
+}
+
+@function rh ($value: 100) {
+    @return calc(var(--rh100) * #{$value / 100});
+}
+
+@function uw ($value: 100) {
+    @return calc(var(--uw100) * #{$value / 100});
+}
+
+@function uh ($value: 100) {
+    @return calc(var(--uh100) * #{$value / 100});
+}
+
+@function rx ($value: 1) {
+    @return calc(var(--rx1) * #{$value});
+}
+
+@function pad($k: 1) {
+    @return calc(var(--rPadding) * #{$k});
+}
+
+@mixin fixedWidth ($value) {
+    min-width: $value;
+    width: $value;
+    max-width: $value;
+}
+
+@mixin fixedHeight ($value) {
+    min-width: $value;
+    width: $value;
+    max-width: $value;
+}
+
+@mixin fixedSize ($w, $h) {
+    @include fixedWidth($w);
+    @include fixedHeight($h);
+}
+
+@function H1() {
+    @return var(--rH1);
+}
+
+@function H2() {
+    @return var(--rH2);
+}
+
+@function H3() {
+    @return var(--rH3);
+}
+
+@function H4() {
+    @return var(--rH4);
+}
+
+@function H5() {
+    @return var(--rH5);
+}
+
+@function H6() {
+    @return var(--rH6);
+}
+
+@function T1() {
+    @return var(--rT1);
+}
+
+@function T2() {
+    @return var(--rT2);
+}
+
+@function T3() {
+    @return var(--rT3);
+}

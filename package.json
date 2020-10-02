@@ -3,6 +3,9 @@
   "version": "3.0.0",
   "description": "Responsive containers",
   "main": "entry/entry.js",
+  "exports": {
+    "./": "./entry/"
+  },
   "scripts": {
     "start": "npm run open",
     "open": "webpack-dev-server --config ./examples/@src/webpack.config.js --env.mode development --open"
@@ -23,7 +26,7 @@
     "pixel"
   ],
   "devDependencies": {
-    "a-webpack-configs": "^2.1.1"
+    "a-webpack-configs": "^2.1.2"
   },
   "dependencies": {}
 }

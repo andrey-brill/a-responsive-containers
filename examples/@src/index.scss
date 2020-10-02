@@ -1,3 +1,5 @@
+@import '../../entry/responsive.scss';
+
 
 html, body {
     margin: 0;
@@ -12,33 +14,31 @@ html, body {
 }
 
 #root {
-    font-size: var(--rT1);
+
+    @include fixedSize(ww(), calc(wh() - var(--rMenuHeight)));
+
+    font-size: T1();
     margin-top: var(--rMenuHeight);
 
     overflow-x: hidden;
     overflow-y: auto;
 
-    width: var(--wuw100);
-    max-width: var(--wuw100);
-
-    height: var(--wuh100);
-    max-height: calc(var(--wuh100) - var(--rMenuHeight));
 }
 
 .content {
-    max-width: calc(2 * var(--rw100));
+    max-width: rw(200);
     margin: auto;
 }
 
 .menu {
     position: fixed;
-    width: var(--wuw100);
+    width: ww();
+    height: var(--rMenuHeight);
     left: 0;
     top: 0;
-    height: var(--rMenuHeight);
     background-color: teal;
     color: whitesmoke;
-    font-size: var(--rH6);
+    font-size: H6();
 }
 
 .menu-items-container {
@@ -49,7 +49,7 @@ html, body {
 }
 
 .menu-item {
-    padding: 0 var(--rPadding);
+    padding: 0 pad();
 }
 
 .menu-item:first-child {
@@ -67,33 +67,33 @@ html.no-scrollbar body::-webkit-scrollbar {
 
 .column {
     flex: 1;
-    padding: var(--rPadding2x) var(--rPadding) 0;
+    padding: pad(2) pad() 0;
 }
 
 .title {
-    font-size: var(--rH4);
+    font-size: H4();
     font-weight: 500;
 }
 
 .sub-title {
-    font-size: var(--rT2);
+    font-size: T2();
     color: #999999;
-    padding-top: calc(8 * var(--rx1));
-    padding-bottom: calc(36 * var(--rx1));
+    padding-top: rx(8);
+    padding-bottom: rx(36);
 }
 
 .text > div {
-    padding-bottom: calc(20 * var(--rx1));
+    padding-bottom: rx(20);
     text-align: justify;
 }
 
 .text > div:last-child {
-    padding-bottom: calc(36 * var(--rx1));
+    padding-bottom: rx(36);
 }
 
 iframe {
     width: 100%;
-    height: calc(0.6 * var(--uh100));
-    border-width: calc(8 * var(--rx1));
-    border-radius: calc(16 * var(--rx1));
+    height: uh(60);
+    border-width: rx(8);
+    border-radius: rx(16);
 }
