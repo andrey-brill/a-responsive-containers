@@ -6,7 +6,7 @@ export * from "./core/Context.js";
 export * from "./core/Responsive.js";
 
 export * from "./containers/ElementContainer.js";
-export * from "./containers/WindowContainer.js";
+export * from "./containers/TopElementContainer.js";
 
 export * from "./helpers/CommonProperties.js";
 export * from "./helpers/ResponsiveColumn.js";

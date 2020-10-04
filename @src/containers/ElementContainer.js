@@ -22,10 +22,6 @@ export class ElementContainer extends Container {
         this.listeners = [];
     }
 
-    listenResize () {
-        this.listenResizeOf(this.target);
-    }
-
     listenResizeOf (target) {
 
         if (!this.target) {

@@ -2,7 +2,11 @@
 import { ElementContainer } from "./ElementContainer.js";
 
 
-export class WindowContainer extends ElementContainer {
+export class TopElementContainer extends ElementContainer {
+
+    listenResize (target = document.body) {
+        this.listenResizeOf(target)
+    }
 
     isValid (width, height) {
 

@@ -3,6 +3,7 @@ import { splitOnNumberAndSuffix } from './Utils';
 
 
 export const PaddingRx = 42;
+export const WindowPrefix = 'w';
 
 export function commonProperties (prefix = '') {
 

@@ -1,22 +1,20 @@
 
 import { ElementContainer } from '../../@src/containers/ElementContainer.js';
-import { WindowContainer, commonProperties, initializeWebContext, toResponsiveColumn } from '../../@src/index.js';
+import { TopElementContainer, commonProperties, initializeWebContext, toResponsiveColumn, WindowPrefix } from '../../@src/index.js';
 import './index.scss';
 
 
 initializeWebContext();
 
 const contentContainer = new ElementContainer()
-contentContainer.target = document.getElementById('root');
-contentContainer.register(contentContainer.target,  Object.assign(commonProperties(), {
+contentContainer.register(document.getElementById('root'),  Object.assign(commonProperties(), {
     rMenuHeight: '96rx'
 }));
 
 let rendered = false;
 
-const windowContainer = new WindowContainer();
-windowContainer.target = document.body;
-windowContainer.register(windowContainer.target, Object.assign(commonProperties('w'), {
+const windowContainer = new TopElementContainer();
+windowContainer.register(document.body, Object.assign(commonProperties(WindowPrefix), {
     onResize: (rp) => {
 
         const { wuw100: width, wuh100: height } = rp;

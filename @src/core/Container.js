@@ -22,8 +22,8 @@ export class Container {
         this.height = 0;
 
         this.ru = {
-            r: {kW: 0, kH: 0},
-            u: {kW: 0, kH: 0}
+            r: { responsiveWidth: 0, responsiveHeight: 0 },
+            u: { responsiveWidth: 0, responsiveHeight: 0 }
         }
     }
 
