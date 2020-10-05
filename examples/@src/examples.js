@@ -1,19 +1,19 @@
 
-import { ElementContainer } from '../../@src/containers/ElementContainer.js';
-import { TopElementContainer, commonProperties, initializeWebContext, toResponsiveColumn, WindowPrefix } from '../../@src/index.js';
+import { ResponsiveContainer, commonProperties, initializeWebContext, toResponsiveColumn, WindowPrefix } from '../../@src/index.js';
 import './index.scss';
 
 
 initializeWebContext();
 
-const contentContainer = new ElementContainer()
+const contentContainer = new ResponsiveContainer({
+    onInitialize: renderHtml
+})
 contentContainer.register(document.getElementById('root'),  Object.assign(commonProperties(), {
     rMenuHeight: '96rx'
 }));
 
-let rendered = false;
 
-const windowContainer = new TopElementContainer();
+const windowContainer = new ResponsiveContainer({ top: true });
 windowContainer.register(document.body, Object.assign(commonProperties(WindowPrefix), {
     onResize: (rp) => {
 
@@ -23,13 +23,10 @@ windowContainer.register(document.body, Object.assign(commonProperties(WindowPre
         contentContainer.resize(responsiveColumn.width, responsiveColumn.height);
         rp.wColumnsContainerDirection = responsiveColumn.numberOfColumns > 1 ? 'row' : 'column';
 
-        if (!rendered) {
-            renderHtml();
-        }
     }
 }));
 
-windowContainer.listenResize();
+windowContainer.listenResizeOf(document.body);
 
 function renderHtml () {
 

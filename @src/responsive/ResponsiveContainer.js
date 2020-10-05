@@ -1,68 +1,81 @@
 
 import { isFunction, isNumber } from "../helpers/Utils.js";
-import { rv } from "../values/Rv.js";
+import { rv } from "./Rv.js";
 import { Container } from '../core/Container.js';
 
 
-export class ElementContainer extends Container {
+export class ResponsiveContainer extends Container {
 
-    constructor (gridWidth, gridHeight) {
-        super(gridWidth, gridHeight);
+    constructor (options = {}) {
+        super(options);
+
+        this.onInitialize = options.onInitialize;
+
+        this.isInitialized = false;
+        this.isListening = false;
         this.listeners = [];
 
-        this.width = 0;
-        this.height = 0;
+        if (options.top) {
+            this.isValid = isValidTopContainer;
+        }
     }
 
     dispose = () => {
         super.dispose();
 
-        this.isActive = false;
-        delete this.target;
+        this.isListening = false;
         this.listeners = [];
     }
 
     listenResizeOf (target) {
 
-        if (!this.target) {
-            this.target = target;
-        } else if (this.target !== target) {
-            throw Error('Target already defined');
+        if (this.isListening) {
+            throw Error('Container already listening another target');
         }
 
-        this.isActive = true;
-        requestAnimationFrame(this.checkSize);
+        this.isListening = true;
+
+        const checkSize = () => {
+
+            if (!this.isListening) {
+                return;
+            }
+
+            const rect = target.getBoundingClientRect();
+            const width = rect ? rect.width : 0;
+            const height = rect ? rect.height : 0;
+            this.resize(width, height)
+
+            requestAnimationFrame(checkSize);
+        }
+
+        checkSize();
 
         return () => {
-            this.isActive = false
+            this.isListening = false
         }
-    }
-
-    checkSize = () => {
-
-        if (!this.isActive) {
-            return;
-        }
-
-        const rect = this.target.getBoundingClientRect();
-        const width = rect ? rect.width : 0;
-        const height = rect ? rect.height : 0;
-        if (this.isValid(width, height) && (this.width != width || this.height != height)) {
-            this.width = width;
-            this.height = height;
-            this.resize(width, height)
-        }
-
-        requestAnimationFrame(this.checkSize);
     }
 
 
     resize = (width, height) => {
-        super.resize(width, height);
 
-        for (let listener of this.listeners) {
-            listener(this.calc);
+        const resized = super.resize(width, height);
+
+        if (resized) {
+
+            this.isInitialized = true;
+
+            for (let listener of this.listeners) {
+                listener(this.calc);
+            }
+
+            if (this.onInitialize) {
+                this.onInitialize();
+                delete this.onInitialize;
+            }
         }
+
+        return resized;
     }
 
     register (object, properties) {
@@ -126,7 +139,7 @@ export class ElementContainer extends Container {
             onResize(r, calc);
         };
 
-        if (this.isValid(this.width, this.height)) {
+        if (this.isInitialized) {
             listener(this.calc);
         }
 
@@ -137,6 +150,21 @@ export class ElementContainer extends Container {
         };
     }
 
+}
 
+function isValidTopContainer (_width, height) {
+
+    const delta = this.height - height;
+    if (delta != 0) {
+        if (delta > 15) { // making sure that delta is changed fast
+            this.previousPositiveDelta = delta;
+        } else if (delta < 0 && this.previousPositiveDelta) {
+            if (this.previousPositiveDelta === Math.abs(delta)) {
+                return false; // preventing changing height to prevent jumping on mobiles
+            }
+        }
+    }
+
+    return true;
 }
 

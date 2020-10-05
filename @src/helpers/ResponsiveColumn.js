@@ -26,9 +26,10 @@ export function toResponsiveColumn (width, height, maxNumberOfColumns = 2) {
     const realColumnWidth = Math.min(wColumnWidth, hColumnWidth);
 
     if (numberOfColumns === 1) {
+        const rHeight = width / ColumnRatio;
         return {
             width,
-            height: width <= height ? height : width / ColumnRatio, // horizontal mode is "zooming" mode
+            height: width <= height ? Math.min(height, rHeight) : rHeight, // horizontal mode is "zooming" mode
             numberOfColumns: 1
         };
     } else { // big screen
