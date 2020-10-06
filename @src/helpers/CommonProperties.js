@@ -35,8 +35,6 @@ export function commonProperties (prefix = '') {
 
     };
 
-    console.log(properties);
-
     const ru = {}
 
     for (let c of ['r', 'u']) {
