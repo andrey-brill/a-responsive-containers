@@ -10,7 +10,6 @@ html, body {
     max-height: 100%;
     width: 100%;
     max-width: 100%;
-    overflow: hidden;
 }
 
 #root {
@@ -38,7 +37,7 @@ html, body {
     top: 0;
     background-color: teal;
     color: whitesmoke;
-    font-size: H6();
+    font-size: T1();
 }
 
 .menu-items-container {
@@ -67,7 +66,7 @@ html.no-scrollbar body::-webkit-scrollbar {
 
 .column {
     flex: 1;
-    padding: pad(2) pad() 0;
+    padding: pad(2) pad();
 }
 
 .title {
@@ -93,7 +92,9 @@ html.no-scrollbar body::-webkit-scrollbar {
 
 iframe {
     width: 100%;
-    height: uh(60);
+    height: wh(60);
+    min-height: wh(60);
     border-width: rx(8);
     border-radius: rx(16);
+    box-sizing: border-box;
 }

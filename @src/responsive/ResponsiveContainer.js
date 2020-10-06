@@ -153,8 +153,7 @@ export class ResponsiveContainer extends Container {
 }
 
 function isValidTopContainer (_width, height) {
-
-    const delta = this.height - height;
+    const delta = height - this.height;
     if (delta != 0) {
         if (delta > 15) { // making sure that delta is changed fast
             this.previousPositiveDelta = delta;

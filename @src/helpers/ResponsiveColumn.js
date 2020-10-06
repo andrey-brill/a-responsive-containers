@@ -4,7 +4,7 @@ import { fromPhysicalInchToWebInch } from './Utils';
 
 
 const ColumnRatio = 9.0 / 16.0;
-const MinColumnWidthInch = fromPhysicalInchToWebInch(3.5);
+const MinColumnWidthInch = fromPhysicalInchToWebInch(3);
 
 // Resolving sizes of virtual column inside full-height sections of landing pages
 // Do not use this in web-applications (there height must be non-changeable)
