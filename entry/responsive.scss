@@ -38,9 +38,9 @@
 }
 
 @mixin fixedHeight ($value) {
-    min-width: $value;
-    width: $value;
-    max-width: $value;
+    min-height: $value;
+    height: $value;
+    max-height: $value;
 }
 
 @mixin fixedSize ($w, $h) {
