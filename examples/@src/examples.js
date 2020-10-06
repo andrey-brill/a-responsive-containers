@@ -37,18 +37,20 @@ function renderHtml () {
     const root = document.getElementById('root');
 
     root.innerHTML = `
-        <div class="menu">
-            <div class="content-container">
-                <div class="content menu-items-container">
-                    <div class="menu-item">Responsive Containers</div>
-                    <div class="menu-item">Menu</div>
+        <div id="app">
+            <div class="menu">
+                <div class="content-container">
+                    <div class="content menu-items-container">
+                        <div class="menu-item">Responsive Containers</div>
+                        <div class="menu-item">Menu</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="content-container">
-            <div class="content columns-container">
-                <div id="leftContainer" class="column"></div>
-                <div id="rightContainer" class="column"></div>
+            <div class="content-container">
+                <div class="content columns-container">
+                    <div id="leftContainer" class="column"></div>
+                    <div id="rightContainer" class="column"></div>
+                </div>
             </div>
         </div>
     `;

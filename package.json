@@ -26,7 +26,7 @@
     "pixel"
   ],
   "devDependencies": {
-    "a-webpack-configs": "^2.1.2"
+    "a-webpack-configs": "^2.1.3"
   },
   "dependencies": {}
 }

@@ -6,22 +6,20 @@ html, body {
     padding: 0;
     font-family: Arial, Helvetica, sans-serif;
     color: #333333;
-    height: 100%;
-    max-height: 100%;
-    width: 100%;
-    max-width: 100%;
+    overflow: hidden;
+    @include fixedSize(100vw, 100vh);
 }
 
 #root {
+    padding-top: var(--rMenuHeight);
+}
 
-    @include fixedSize(ww(), calc(wh() - var(--rMenuHeight)));
+#app {
+    @include fixedSize(ww(), calc(#{wh()} - var(--rMenuHeight)));
 
     font-size: T1();
-    margin-top: var(--rMenuHeight);
-
     overflow-x: hidden;
     overflow-y: auto;
-
 }
 
 .content {
